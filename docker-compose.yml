@@ -1,0 +1,8 @@
+version: "3"
+services:
+  pactores:
+    build: .
+    image: pactores
+    container_name: pactores
+    volumes:
+      - .:/app
