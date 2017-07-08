@@ -24,16 +24,19 @@ final class Dispatcher
     }
 
     /**
-     * @param string $actor
+     * @todo test case with not existing actor
+     * @todo move creation of actor in other place
+     * @param string $actorClass
      * @return Mailbox
      */
-    public function mailboxFor(string $actor): Mailbox
+    public function mailboxFor(string $actorClass): Mailbox
     {
-        if (!isset($this->mailboxes[$actor])) {
-            $this->mailboxes[$actor] = new Mailbox($actor);
+        if (!isset($this->mailboxes[$actorClass])) {
+            $actor = new $actorClass();
+            $this->mailboxes[$actorClass] = new Mailbox($actor);
         }
 
-        return $this->mailboxes[$actor];
+        return $this->mailboxes[$actorClass];
     }
 
     /**

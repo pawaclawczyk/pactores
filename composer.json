@@ -27,7 +27,8 @@
     },
     "scripts": {
         "cs": "bin/php-cs-fixer fix",
-        "test": "bin/phpunit tests/"
+        "test": "bin/phpunit tests/",
+        "example": "php examples/StudentSimulatorApp.php"
     },
     "config": {
         "bin-dir": "bin"

@@ -22,4 +22,12 @@ final class Failure extends TryDo
     {
         return $this;
     }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return sprintf('Failure[%s : "%s"]', get_class($this->error), $this->error->getMessage());
+    }
 }

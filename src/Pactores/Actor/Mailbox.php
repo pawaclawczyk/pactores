@@ -12,25 +12,25 @@ use Countable;
 
 final class Mailbox implements Countable
 {
-    /** @var string */
+    /** @var Actor */
     private $owner;
 
     /** @var SplQueue */
     private $queue;
 
     /**
-     * @param string $owner
+     * @param Actor $owner
      */
-    public function __construct(string $owner)
+    public function __construct(Actor $owner)
     {
         $this->owner = $owner;
         $this->queue = new SplQueue();
     }
 
     /**
-     * @return string
+     * @return Actor
      */
-    public function owner(): string
+    public function owner(): Actor
     {
         return $this->owner;
     }

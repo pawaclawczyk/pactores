@@ -13,17 +13,9 @@ class ThreadPoolTest extends TestCase
     private $pool;
 
     /** @test */
-    public function it_fails_creating_worker_for_not_existing_actor()
-    {
-        $worker = $this->pool->workerFor('SomeActor');
-
-        $this->assertInstanceOf(Failure::class, $worker);
-    }
-
-    /** @test */
     public function it_succeeds_creating_worker_for_actor()
     {
-        $worker = $this->pool->workerFor(ExampleActor::class);
+        $worker = $this->pool->workerFor(new ExampleActor());
 
         $this->assertInstanceOf(Success::class, $worker);
     }
@@ -37,7 +29,7 @@ class ThreadPoolTest extends TestCase
     /** @test */
     public function it_shutdowns()
     {
-        $this->pool->workerFor(ExampleActor::class);
+        $this->pool->workerFor(new ExampleActor());
 
         $this->assertTrue($this->pool->shutdown());
     }

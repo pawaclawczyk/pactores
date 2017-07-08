@@ -16,17 +16,9 @@ class ThreadPoolExecutorTest extends TestCase
     private $executor;
 
     /** @test */
-    public function it_executes_mailbox_of_not_existing_actor()
-    {
-        $mailbox = new Mailbox('SomeActor');
-
-        $this->assertNull($this->executor->execute($mailbox));
-    }
-
-    /** @test */
     public function it_executes_mailbox_empty_mailbox()
     {
-        $mailbox = new Mailbox(ExampleActor::class);
+        $mailbox = new Mailbox(new ExampleActor());
 
         $this->assertNull($this->executor->execute($mailbox));
     }
@@ -34,7 +26,7 @@ class ThreadPoolExecutorTest extends TestCase
     /** @test */
     public function it_executes_mailbox()
     {
-        $mailbox = new Mailbox(ExampleActor::class);
+        $mailbox = new Mailbox(new ExampleActor());
         $mailbox->enqueue(new ExampleMesssage());
 
         $this->assertNull($this->executor->execute($mailbox));
@@ -49,7 +41,7 @@ class ThreadPoolExecutorTest extends TestCase
             unlink($file);
         }
 
-        $mailbox = new Mailbox(MathDoctor::class);
+        $mailbox = new Mailbox(new MathDoctor());
         $mailbox->enqueue(new SquareX($file, 12));
 
         $this->executor->execute($mailbox);

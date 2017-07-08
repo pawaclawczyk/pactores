@@ -4,6 +4,7 @@ declare(strict_types = 1);
 
 namespace Pactores\Executor\ThreadPoolExecutor;
 
+use Pactores\Actor\Actor;
 use TryDo\TryDo;
 
 final class ThreadPool
@@ -12,17 +13,19 @@ final class ThreadPool
     private $pool = [];
 
     /**
-     * @param string $actor
-     * @return TryDo[ActorWorker, Throwable]
+     * @param Actor $actor
+     * @return TryDo
      */
-    public function workerFor(string $actor): TryDo
+    public function workerFor(Actor $actor): TryDo
     {
         return TryDo::tryDo(function () use ($actor) : ActorWorker {
-            if (!isset($this->pool[$actor])) {
-                $this->pool[$actor] = new ActorWorker($actor);
+            $actorClass = get_class($actor);
+
+            if (!isset($this->pool[$actorClass])) {
+                $this->pool[$actorClass] = new ActorWorker($actor);
             }
 
-            $worker = $this->pool[$actor];
+            $worker = $this->pool[$actorClass];
 
             $worker->isStarted() ?: $worker->start();
 

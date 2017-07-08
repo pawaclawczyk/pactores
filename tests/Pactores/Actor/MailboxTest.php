@@ -17,7 +17,7 @@ class MailboxTest extends TestCase
     /** @test */
     public function it_belongs_to_actor()
     {
-        $this->assertEquals(self::SOME_ACTOR_CLASS, $this->mailbox->owner());
+        $this->assertEquals(new ExampleActor(), $this->mailbox->owner());
     }
 
     /** @test */
@@ -63,7 +63,7 @@ class MailboxTest extends TestCase
     {
         parent::setUp();
 
-        $this->mailbox = new Mailbox(self::SOME_ACTOR_CLASS);
+        $this->mailbox = new Mailbox(new ExampleActor());
     }
 
     protected function tearDown()

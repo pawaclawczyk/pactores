@@ -13,11 +13,11 @@ final class ActorWorker extends Worker
     private $actor;
 
     /**
-     * @param string $actor
+     * @param Actor $actor
      */
-    public function __construct(string $actor)
+    public function __construct(Actor $actor)
     {
-        $this->actor = new $actor();
+        $this->actor = $actor;
     }
 
     /**
