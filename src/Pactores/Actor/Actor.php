@@ -15,10 +15,22 @@ abstract class Actor extends Threaded
 
     public static function instantiate(ActorRef $selfRef, array $arguments): Actor
     {
-        $actor = new static(...$arguments);
+        $actor = new static(...self::bindActorRefs($selfRef, $arguments));
+
         $actor->selfRef = $selfRef;
 
         return $actor;
+    }
+
+    private static function bindActorRefs(ActorRef $bindTo, array $arguments): array
+    {
+        return array_map(function ($argument) use ($bindTo) {
+            if ($argument instanceof ActorRef) {
+                return new BoundActorRef($bindTo, $argument);
+            }
+
+            return $argument;
+        }, $arguments);
     }
 
     /**

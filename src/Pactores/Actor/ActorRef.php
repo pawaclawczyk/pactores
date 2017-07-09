@@ -7,13 +7,13 @@ namespace Pactores\Actor;
 use Pactores\Dispatcher;
 use Pactores\Message;
 
-final class ActorRef
+class ActorRef
 {
     /** @var Props */
-    private $actor;
+    protected $actor;
 
     /** @var Dispatcher */
-    private $dispatcher;
+    protected $dispatcher;
 
     /**
      * @param Props $actor

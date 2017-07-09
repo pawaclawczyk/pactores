@@ -22,7 +22,7 @@ final class StudentActor extends Actor
     public function receive(Message $message)
     {
         if ($message instanceof InitialSignal) {
-            $this->teacherRef->tell(TeacherProtocol::QuoteRequest(), $this->selfRef());
+            $this->teacherRef->tell(TeacherProtocol::QuoteRequest());
         }
 
         if ($message instanceof QuoteResponse) {
