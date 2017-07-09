@@ -4,7 +4,7 @@ declare(strict_types = 1);
 
 namespace Pactores\Executor\ThreadPoolExecutor;
 
-use Pactores\Message;
+use Pactores\Envelope;
 use Threaded;
 
 final class MessageThreaded extends Threaded
@@ -12,17 +12,15 @@ final class MessageThreaded extends Threaded
     /** @var ActorWorker */
     protected $worker;
 
-    /**
-     * @var Message
-     */
-    private $message;
+    /** @var Envelope */
+    private $envelope;
 
     /**
-     * @param Message $message
+     * @param Envelope $envelope
      */
-    public function __construct(Message $message)
+    public function __construct(Envelope $envelope)
     {
-        $this->message = $message;
+        $this->envelope = $envelope;
     }
 
     /**
@@ -30,6 +28,6 @@ final class MessageThreaded extends Threaded
      */
     public function run()
     {
-        $this->worker->actor()->receive($this->message);
+        $this->worker->actor()->doReceive($this->envelope);
     }
 }

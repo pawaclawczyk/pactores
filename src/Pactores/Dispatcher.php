@@ -4,6 +4,7 @@ declare(strict_types = 1);
 
 namespace Pactores;
 
+use Pactores\Actor\ActorRef;
 use Pactores\Actor\Mailbox;
 use Pactores\Actor\Props;
 use Pactores\Executor\Executor;
@@ -30,15 +31,15 @@ final class Dispatcher
      */
 
     /**
-     * @param Props $actor
+     * @param ActorRef $actorRef
      * @return Mailbox
      */
-    public function mailboxFor(Props $actor): Mailbox
+    public function mailboxFor(ActorRef $actorRef): Mailbox
     {
-        list($actorClass, $arguments) = $actor->constructor();
+        list($actorClass, $arguments) = $actorRef->props()->constructor();
 
         if (!isset($this->mailboxes[$actorClass])) {
-            $actor = new $actorClass(...$arguments);
+            $actor = $actorClass::instantiate($actorRef, $arguments);
 
             $this->mailboxes[$actorClass] = new Mailbox($actor);
         }
@@ -48,12 +49,13 @@ final class Dispatcher
 
     /**
      * @param Message $message
-     * @param Props $recipient
+     * @param ActorRef $recipient
+     * @param ActorRef $sender
      */
-    public function dispatch(Message $message, Props $recipient)
+    public function dispatch(Message $message, ActorRef $recipient, ActorRef $sender = null)
     {
         $mailbox = $this->mailboxFor($recipient);
-        $mailbox->enqueue($message);
+        $mailbox->enqueue(new Envelope($message, $recipient, $sender));
 
         $this->executor->execute($mailbox);
     }

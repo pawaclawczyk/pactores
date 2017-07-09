@@ -3,6 +3,7 @@
 namespace Pactores\Actor;
 
 use Option\Option;
+use Pactores\Envelope;
 use Pactores\Message;
 use PHPUnit\Framework\TestCase;
 use Countable;
@@ -23,11 +24,11 @@ class MailboxTest extends TestCase
     /** @test */
     public function it_enqueues_message_and_dequeues_option_message()
     {
-        $this->mailbox->enqueue(new ExampleMesssage());
+        $this->mailbox->enqueue(new Envelope(new ExampleMesssage()));
 
         $message = $this->mailbox->dequeue();
         $this->assertInstanceOf(Option::class, $message);
-        $this->assertInstanceOf(Message::class, $message->getOrElse(null));
+        $this->assertInstanceOf(Envelope::class, $message->getOrElse(null));
     }
 
     /** @test */
@@ -49,8 +50,8 @@ class MailboxTest extends TestCase
     {
         $this->assertCount(0, $this->mailbox);
 
-        $this->mailbox->enqueue(new ExampleMesssage());
-        $this->mailbox->enqueue(new ExampleMesssage());
+        $this->mailbox->enqueue(new Envelope(new ExampleMesssage()));
+        $this->mailbox->enqueue(new Envelope(new ExampleMesssage()));
 
         $this->assertCount(2, $this->mailbox);
 

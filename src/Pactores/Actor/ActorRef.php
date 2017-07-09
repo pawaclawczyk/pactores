@@ -26,10 +26,19 @@ final class ActorRef
     }
 
     /**
-     * @param Message $message
+     * @return Props
      */
-    public function tell(Message $message)
+    public function props(): Props
     {
-        $this->dispatcher->dispatch($message, $this->actor);
+        return $this->actor;
+    }
+
+    /**
+     * @param Message $message
+     * @param ActorRef|null $sender
+     */
+    public function tell(Message $message, ActorRef $sender = null)
+    {
+        $this->dispatcher->dispatch($message, $this, $sender);
     }
 }

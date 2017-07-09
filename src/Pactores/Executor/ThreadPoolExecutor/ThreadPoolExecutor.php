@@ -28,10 +28,10 @@ final class ThreadPoolExecutor implements Executor
     {
         $worker = $this->pool->workerFor($mailbox->owner());
 
-        while (Option::None() != $message = $mailbox->dequeue()) {
-            $worker->map(function (ActorWorker $worker) use ($message) {
+        while (Option::None() != $envelope = $mailbox->dequeue()) {
+            $worker->map(function (ActorWorker $worker) use ($envelope) {
                 $worker
-                    ->stack(new MessageThreaded($message->getOrElse(null)));
+                    ->stack(new MessageThreaded($envelope->getOrElse(null)));
             });
         }
     }

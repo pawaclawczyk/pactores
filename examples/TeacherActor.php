@@ -4,6 +4,7 @@ declare(strict_types = 1);
 
 namespace Examples;
 
+use Examples\Protocol\QuoteRequest;
 use Pactores\Actor\Actor;
 use Pactores\Message;
 
@@ -22,7 +23,9 @@ final class TeacherActor extends Actor
         if ($message instanceof QuoteRequest) {
             usleep(random_int(50000, 500000));
 
-            print $this->quotes[random_int(0, 4)] . PHP_EOL;
+            $quote = $this->quotes[random_int(0, 4)];
+
+            $this->sender()->tell(TeacherProtocol::QuoteResponse($quote));
         }
     }
 }

@@ -6,7 +6,7 @@ namespace Pactores\Actor;
 
 use Option\Option;
 use Option\Some;
-use Pactores\Message;
+use Pactores\Envelope;
 use SplQueue;
 use Countable;
 
@@ -36,16 +36,15 @@ final class Mailbox implements Countable
     }
 
     /**
-     * @param Message $message
-     * @return void
+     * @param Envelope $message
      */
-    public function enqueue(Message $message)
+    public function enqueue(Envelope $message)
     {
         $this->queue->enqueue($message);
     }
 
     /**
-     * @return Option[Message]
+     * @return Option[Envelope]
      */
     public function dequeue(): Option
     {

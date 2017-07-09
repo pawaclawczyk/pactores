@@ -7,6 +7,7 @@ use Pactores\Actor\ExampleMesssage;
 use Pactores\Actor\Mailbox;
 use Pactores\Actor\MathDoctor;
 use Pactores\Actor\SquareX;
+use Pactores\Envelope;
 use Pactores\Executor\Executor;
 use PHPUnit\Framework\TestCase;
 
@@ -27,7 +28,7 @@ class ThreadPoolExecutorTest extends TestCase
     public function it_executes_mailbox()
     {
         $mailbox = new Mailbox(new ExampleActor());
-        $mailbox->enqueue(new ExampleMesssage());
+        $mailbox->enqueue(new Envelope(new ExampleMesssage()));
 
         $this->assertNull($this->executor->execute($mailbox));
     }
@@ -42,7 +43,7 @@ class ThreadPoolExecutorTest extends TestCase
         }
 
         $mailbox = new Mailbox(new MathDoctor());
-        $mailbox->enqueue(new SquareX($file, 12));
+        $mailbox->enqueue(new Envelope(new SquareX($file, 12)));
 
         $this->executor->execute($mailbox);
         $this->executor->shutdown();
