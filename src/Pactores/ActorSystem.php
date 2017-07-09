@@ -5,6 +5,7 @@ declare(strict_types = 1);
 namespace Pactores;
 
 use Pactores\Actor\ActorRef;
+use Pactores\Actor\Props;
 use Pactores\Executor\Executor;
 use Pactores\Executor\ThreadPoolExecutor\ThreadPoolExecutor;
 
@@ -24,11 +25,12 @@ final class ActorSystem
 
     /**
      * @todo handle not existing actor
-     *
-     * @param string $actor
+     */
+    /**
+     * @param Props $actor
      * @return ActorRef
      */
-    public function actorOf(string $actor): ActorRef
+    public function actorOf(Props $actor): ActorRef
     {
         return new ActorRef($actor, $this->dispatcher);
     }

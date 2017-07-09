@@ -21,6 +21,22 @@ final class ActorWorker extends Worker
     }
 
     /**
+     * @inheritdoc
+     */
+    public function start(int $options = null)
+    {
+        return parent::start(PTHREADS_INHERIT_NONE);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function run()
+    {
+        require_once __DIR__.'/../../../../vendor/autoload.php';
+    }
+
+    /**
      * @return Actor
      */
     public function actor(): Actor

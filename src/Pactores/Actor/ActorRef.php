@@ -9,19 +9,19 @@ use Pactores\Message;
 
 final class ActorRef
 {
-    /** @var string */
-    private $actorClass;
+    /** @var Props */
+    private $actor;
 
     /** @var Dispatcher */
     private $dispatcher;
 
     /**
-     * @param string $actorClass
+     * @param Props $actor
      * @param Dispatcher $dispatcher
      */
-    public function __construct(string $actorClass, Dispatcher $dispatcher)
+    public function __construct(Props $actor, Dispatcher $dispatcher)
     {
-        $this->actorClass = $actorClass;
+        $this->actor = $actor;
         $this->dispatcher = $dispatcher;
     }
 
@@ -30,6 +30,6 @@ final class ActorRef
      */
     public function tell(Message $message)
     {
-        $this->dispatcher->dispatch($message, $this->actorClass);
+        $this->dispatcher->dispatch($message, $this->actor);
     }
 }

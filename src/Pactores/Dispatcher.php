@@ -5,6 +5,7 @@ declare(strict_types = 1);
 namespace Pactores;
 
 use Pactores\Actor\Mailbox;
+use Pactores\Actor\Props;
 use Pactores\Executor\Executor;
 
 final class Dispatcher
@@ -26,13 +27,19 @@ final class Dispatcher
     /**
      * @todo test case with not existing actor
      * @todo move creation of actor in other place
-     * @param string $actorClass
+     */
+
+    /**
+     * @param Props $actor
      * @return Mailbox
      */
-    public function mailboxFor(string $actorClass): Mailbox
+    public function mailboxFor(Props $actor): Mailbox
     {
+        list($actorClass, $arguments) = $actor->constructor();
+
         if (!isset($this->mailboxes[$actorClass])) {
-            $actor = new $actorClass();
+            $actor = new $actorClass(...$arguments);
+
             $this->mailboxes[$actorClass] = new Mailbox($actor);
         }
 
@@ -40,11 +47,10 @@ final class Dispatcher
     }
 
     /**
-     * @param mixed $message
-     * @param string $recipient
-     * @return void
+     * @param Message $message
+     * @param Props $recipient
      */
-    public function dispatch($message, string $recipient)
+    public function dispatch(Message $message, Props $recipient)
     {
         $mailbox = $this->mailboxFor($recipient);
         $mailbox->enqueue($message);
