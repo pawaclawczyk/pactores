@@ -43,19 +43,4 @@ final class ThreadPoolExecutor implements Executor
     {
         return $this->pool->shutdown();
     }
-
-    /**
-     * @param Mailbox $mailbox
-     * @return callable
-     */
-    public function executionUnit(Mailbox $mailbox): callable
-    {
-        return function () use ($mailbox) {
-            $worker = $this->pool->workerFor($mailbox->owner());
-
-            while (Option::None() != $message = $mailbox->dequeue()) {
-                $worker->stack(new MessageThreaded($message->getOrElse(null)));
-            }
-        };
-    }
 }
