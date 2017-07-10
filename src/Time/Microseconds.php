@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Time;
 
-final class Microtime
+final class Microseconds
 {
     private $microseconds = 0;
 
@@ -17,14 +17,19 @@ final class Microtime
         return new self($microseconds);
     }
 
-    public function sub(Microtime $other): Microtime
+    public function sub(Microseconds $other): Microseconds
     {
         return new self($this->microseconds - $other->microseconds);
     }
 
-    public function roundToSeconds()
+    public function toSeconds()
     {
         return (int) ($this->microseconds / 1000000);
+    }
+
+    public function toMiliseconds()
+    {
+        return (int) ($this->microseconds / 1000);
     }
 
     public function __toString(): string

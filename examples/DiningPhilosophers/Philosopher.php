@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Examples\DiningPhilosophers;
 
-use Time\Microtime;
+use Time\Microseconds;
 
 final class Philosopher extends \Thread
 {
@@ -23,7 +23,7 @@ final class Philosopher extends \Thread
 //        $this->left = ($left->id() < $right->id()) ? $left : $right;
 //        $this->right = ($left->id() < $right->id()) ? $right : $left;
 
-        $this->eatLeastTime = Microtime::now();
+        $this->eatLeastTime = Microseconds::now();
     }
 
     public function run()
@@ -35,7 +35,7 @@ final class Philosopher extends \Thread
             $id = $this->id;
 
             while ($this->synchronized(function (Chopstick $left, Chopstick $right) use ($id) {
-                $time = Microtime::now()->sub($this->eatLeastTime)->roundToSeconds();
+                $time = Microseconds::now()->sub($this->eatLeastTime)->toSeconds();
                 print "$id haven't eat for $time seconds" . PHP_EOL;
 
                 if (!$left->canUse($id)) {
@@ -57,7 +57,7 @@ final class Philosopher extends \Thread
                 print "$id is eating... with left({$left->beingUsedBy()}) and right({$right->beingUsedBy()})" . PHP_EOL;
                 usleep(random_int(1000000, 5000000));
 
-                $this->eatLeastTime = Microtime::now();
+                $this->eatLeastTime = Microseconds::now();
 
                 $left->releaseIt($id);
                 $left->notify();
@@ -66,7 +66,7 @@ final class Philosopher extends \Thread
                 $right->notify();
             }, $this->left, $this->right)) ;
 
-            if (Microtime::now()->sub($this->eatLeastTime)->roundToSeconds() > 180) {
+            if (Microseconds::now()->sub($this->eatLeastTime)->toSeconds() > 180) {
                 $this->synchronized(function (Chopstick $left, Chopstick $right) {
                     $left->releaseIt($this->id);
                     $right->releaseIt($this->id);
