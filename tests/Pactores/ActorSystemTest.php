@@ -28,6 +28,12 @@ class ActorSystemTest extends TestCase
     }
 
     /** @test */
+    public function it_generates_different_actor_refs()
+    {
+        $this->markTestSkipped('Not implemented yet.');
+    }
+
+    /** @test */
     public function it_shutdowns()
     {
         $this->markTestSkipped('Not yet refactored.');

@@ -5,23 +5,24 @@ declare(strict_types = 1);
 namespace Pactores\Actor;
 
 use Pactores\Dispatcher;
+use Pactores\Mail;
 use Pactores\Message;
 
 class ActorRef
 {
     /** @var Properties */
-    protected $actor;
+    protected $actorId;
 
     /** @var Dispatcher */
     protected $dispatcher;
 
     /**
-     * @param Properties $actor
+     * @param ActorId $actorId
      * @param Dispatcher $dispatcher
      */
-    public function __construct(Properties $actor, Dispatcher $dispatcher)
+    public function __construct(ActorId $actorId, Dispatcher $dispatcher)
     {
-        $this->actor = $actor;
+        $this->actorId = $actorId;
         $this->dispatcher = $dispatcher;
     }
 
@@ -30,15 +31,14 @@ class ActorRef
      */
     public function props(): Properties
     {
-        return $this->actor;
+        return $this->actorId;
     }
 
     /**
-     * @param Message $message
-     * @param ActorRef|null $sender
+     * @param mixed $message
      */
-    public function tell(Message $message, ActorRef $sender = null)
+    public function tell($message)
     {
-        $this->dispatcher->dispatch($message, $this, $sender);
+        $this->dispatcher->send(new Mail($message, $this->actorId));
     }
 }

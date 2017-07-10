@@ -59,4 +59,12 @@ use Pactores\Executor\Executor;
 
         $this->executor->execute($mailbox);
     }
+
+    /**
+     * @param Mail $mail
+     */
+    public function send(Mail $mail)
+    {
+        trigger_error('Not implemented yet.');
+    }
 }

@@ -4,6 +4,7 @@ declare(strict_types = 1);
 
 namespace Pactores;
 
+use Pactores\Actor\ActorId;
 use Pactores\Actor\ActorRef;
 use Pactores\Actor\Properties;
 use Pactores\Executor\Executor;
@@ -31,7 +32,7 @@ final class ActorSystem
      */
     public function actorOf(Properties $actor): ActorRef
     {
-        return new ActorRef($actor, $this->dispatcher);
+        return new ActorRef(new ActorId(42), $this->dispatcher);
     }
 
     /**

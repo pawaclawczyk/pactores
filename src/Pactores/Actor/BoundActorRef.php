@@ -12,7 +12,7 @@ final class BoundActorRef extends ActorRef
 
     public function __construct(ActorRef $boundTo, ActorRef $original)
     {
-        parent::__construct($original->actor, $original->dispatcher);
+        parent::__construct($original->actorId, $original->dispatcher);
 
         $this->boundTo = $boundTo;
     }
