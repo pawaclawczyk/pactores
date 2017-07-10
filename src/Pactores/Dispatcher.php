@@ -9,7 +9,7 @@ use Pactores\Actor\Mailbox;
 use Pactores\Actor\Properties;
 use Pactores\Executor\Executor;
 
-final class Dispatcher
+/*final*/ class Dispatcher
 {
     /** @var Mailbox[] */
     private $mailboxes = [];

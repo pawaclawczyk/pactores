@@ -7,7 +7,6 @@ namespace Pactores;
 use Pactores\Actor\ActorRef;
 use Pactores\Actor\Properties;
 use Pactores\Executor\Executor;
-use Pactores\Executor\ThreadPoolExecutor\ThreadPoolExecutor;
 
 final class ActorSystem
 {
@@ -17,10 +16,10 @@ final class ActorSystem
     /** @var Dispatcher  */
     private $dispatcher;
 
-    public function __construct()
+    public function __construct(Dispatcher $dispatcher, Executor $executor)
     {
-        $this->executor = new ThreadPoolExecutor();
-        $this->dispatcher = new Dispatcher($this->executor);
+        $this->executor = $executor;
+        $this->dispatcher = $dispatcher;
     }
 
     /**
