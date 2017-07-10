@@ -8,6 +8,7 @@ use Examples\Protocol\InitialSignal;
 use Examples\Protocol\QuoteResponse;
 use Pactores\Actor\Actor;
 use Pactores\Actor\ActorRef;
+use Pactores\Debug;
 use Pactores\Message;
 
 final class StudentActor extends Actor
@@ -26,7 +27,7 @@ final class StudentActor extends Actor
         }
 
         if ($message instanceof QuoteResponse) {
-            print (string) $message . PHP_EOL;
+            Debug::println((string) $message);
         }
     }
 }

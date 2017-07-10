@@ -27,7 +27,7 @@ final class Microseconds
         return (int) ($this->microseconds / 1000000);
     }
 
-    public function toMiliseconds()
+    public function toMilliseconds()
     {
         return (int) ($this->microseconds / 1000);
     }

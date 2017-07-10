@@ -8,6 +8,7 @@ require_once __DIR__.'/../vendor/autoload.php';
 
 use Pactores\Actor\Props;
 use Pactores\ActorSystem;
+use Pactores\Debug;
 
 final class StudentSimulatorApp
 {
@@ -20,7 +21,11 @@ final class StudentSimulatorApp
 
         $studentRef->tell(TeacherProtocol::InitialSignal());
 
+        Debug::println('Main -- sleep for seconds.');
+
         sleep(2);
+
+        Debug::println('Main -- wake up.');
 
         $actorSystem->shutdown();
     }
