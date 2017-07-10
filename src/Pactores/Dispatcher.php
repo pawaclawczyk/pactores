@@ -6,7 +6,7 @@ namespace Pactores;
 
 use Pactores\Actor\ActorRef;
 use Pactores\Actor\Mailbox;
-use Pactores\Actor\Props;
+use Pactores\Actor\Properties;
 use Pactores\Executor\Executor;
 
 final class Dispatcher

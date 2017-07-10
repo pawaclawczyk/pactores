@@ -3,7 +3,7 @@
 namespace Pactores;
 
 use Pactores\Actor\ActorRef;
-use Pactores\Actor\Props;
+use Pactores\Actor\Properties;
 use PHPUnit\Framework\TestCase;
 
 class ActorSystemTest extends TestCase
@@ -14,7 +14,7 @@ class ActorSystemTest extends TestCase
     /** @test */
     public function it_returns_actor_ref()
     {
-        $actorRef = $this->actorSystem->actorOf(new Props('SomeActor'));
+        $actorRef = $this->actorSystem->actorOf(new Properties('SomeActor'));
 
         $this->assertInstanceOf(ActorRef::class, $actorRef);
     }

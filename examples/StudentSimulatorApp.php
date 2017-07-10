@@ -6,7 +6,7 @@ namespace Examples;
 
 require_once __DIR__.'/../vendor/autoload.php';
 
-use Pactores\Actor\Props;
+use Pactores\Actor\Properties;
 use Pactores\ActorSystem;
 use Debug\Debug;
 
@@ -16,8 +16,8 @@ final class StudentSimulatorApp
     {
         $actorSystem = new ActorSystem();
 
-        $teacherActorRef = $actorSystem->actorOf(new Props(TeacherActor::class));
-        $studentRef = $actorSystem->actorOf(new Props(StudentActor::class, [$teacherActorRef]));
+        $teacherActorRef = $actorSystem->actorOf(new Properties(TeacherActor::class));
+        $studentRef = $actorSystem->actorOf(new Properties(StudentActor::class, [$teacherActorRef]));
 
         $studentRef->tell(TeacherProtocol::InitialSignal());
 

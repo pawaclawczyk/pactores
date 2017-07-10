@@ -9,26 +9,26 @@ use Pactores\Message;
 
 class ActorRef
 {
-    /** @var Props */
+    /** @var Properties */
     protected $actor;
 
     /** @var Dispatcher */
     protected $dispatcher;
 
     /**
-     * @param Props $actor
+     * @param Properties $actor
      * @param Dispatcher $dispatcher
      */
-    public function __construct(Props $actor, Dispatcher $dispatcher)
+    public function __construct(Properties $actor, Dispatcher $dispatcher)
     {
         $this->actor = $actor;
         $this->dispatcher = $dispatcher;
     }
 
     /**
-     * @return Props
+     * @return Properties
      */
-    public function props(): Props
+    public function props(): Properties
     {
         return $this->actor;
     }
