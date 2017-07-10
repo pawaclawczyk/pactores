@@ -8,7 +8,7 @@ use Examples\Protocol\InitialSignal;
 use Examples\Protocol\QuoteResponse;
 use Pactores\Actor\Actor;
 use Pactores\Actor\ActorRef;
-use Pactores\Debug;
+use Debug\Debug;
 use Pactores\Message;
 
 final class StudentActor extends Actor

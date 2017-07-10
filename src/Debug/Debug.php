@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Pactores;
+namespace Debug;
 
 use Time\Microseconds;
 

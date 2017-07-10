@@ -8,7 +8,7 @@ require_once __DIR__.'/../vendor/autoload.php';
 
 use Pactores\Actor\Props;
 use Pactores\ActorSystem;
-use Pactores\Debug;
+use Debug\Debug;
 
 final class StudentSimulatorApp
 {
