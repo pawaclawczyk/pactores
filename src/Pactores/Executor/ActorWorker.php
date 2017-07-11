@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace Pactores\Executor\ThreadPoolExecutor;
+namespace Pactores\Executor;
 
 use Pactores\Actor\Actor;
 use Worker;

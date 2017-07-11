@@ -6,7 +6,6 @@ namespace Pactores\Actor;
 
 use Pactores\Dispatcher;
 use Pactores\Mail;
-use Pactores\Message;
 
 class ActorRef
 {
